@@ -3,16 +3,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node --loader ts-node/esm src/index.ts",
-    "start": "node dist/index.js",
-    "build": "tsc -p tsconfig.json"
+    "dev": "node src/index.js",
+    "start": "node src/index.js"
   },
   "dependencies": {
     "nanoframe": "workspace:*"
-  },
-  "devDependencies": {
-    "@types/node": "^24.3.0",
-    "ts-node": "10",
-    "typescript": "5.9.2"
   }
 }
