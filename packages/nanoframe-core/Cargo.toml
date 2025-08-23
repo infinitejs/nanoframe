@@ -16,7 +16,7 @@ parking_lot = "0.12"
 crossbeam-channel = "0.5"
 uuid = { version = "1", features = ["v4", "serde"] }
 directories = "5"
-rfd = "0.14"
+rfd = "0.15"
 image = { version = "0.24", default-features = false, features = ["png", "ico"] }
 open = "5"
 arboard = "3"
