@@ -17,7 +17,7 @@ crossbeam-channel = "0.5"
 uuid = { version = "1", features = ["v4", "serde"] }
 rfd = "0.15"
 directories = "6"
-image = { version = "0.24", default-features = false, features = ["png", "ico"] }
+image = { version = "0.25", default-features = false, features = ["png", "ico"] }
 open = "5"
 arboard = "3"
 
