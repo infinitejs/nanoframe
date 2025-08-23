@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security issue
+    url: https://github.com/infinitejs/nanoframe/security/policy
+    about: Please report security vulnerabilities via the Security Policy
+  - name: Questions & Discussions
+    url: https://github.com/infinitejs/nanoframe/discussions
+    about: Ask questions, share ideas, and get help in Discussions

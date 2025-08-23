@@ -1,0 +1,16 @@
+* text=auto eol=lf
+
+# Treat these as binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.exe binary
+*.dll binary
+*.pdb binary
+
+# Linguist hints
+packages/nanoframe-core/** linguist-language=Rust
+packages/nanoframe/** linguist-language=TypeScript
+
+# Ignore example files
+examples/** linguist-language=TypeScript

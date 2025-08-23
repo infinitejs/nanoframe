@@ -1,0 +1,32 @@
+{
+  "name": "nanoframe-monorepo",
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.14.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/infinitejs/nanoframe.git"
+  },
+  "homepage": "https://github.com/infinitejs/nanoframe#readme",
+  "bugs": {
+    "url": "https://github.com/infinitejs/nanoframe/issues"
+  },
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "license": "ICL",
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev": "pnpm -C examples/hello-world dev",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "format": "pnpm -r format",
+    "bootstrap": "pnpm install"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  }
+}

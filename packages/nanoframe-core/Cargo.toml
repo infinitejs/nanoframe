@@ -1,0 +1,32 @@
+[package]
+name = "nanoframe-core"
+version = "0.1.0"
+edition = "2021"
+description = "Nanoframe Rust core controlling system webviews with JSON-RPC over stdio"
+license = "ICL"
+
+[dependencies]
+anyhow = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tao = { version = "0.34", default-features = false, features = ["rwh_06"] }
+wry = { version = "0.53", default-features = false, features = ["devtools"] }
+thiserror = "2"
+parking_lot = "0.12"
+crossbeam-channel = "0.5"
+uuid = { version = "1", features = ["v4", "serde"] }
+directories = "5"
+rfd = "0.14"
+image = { version = "0.24", default-features = false, features = ["png", "ico"] }
+open = "5"
+arboard = "3"
+
+[features]
+default = []
+
+[package.metadata.bundle]
+name = "nanoframe-core"
+
+[[bin]]
+name = "nanoframe-core"
+path = "src/main.rs"

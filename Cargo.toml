@@ -1,0 +1,5 @@
+[workspace]
+members = [
+  "packages/nanoframe-core"
+]
+resolver = "2"

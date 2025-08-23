@@ -1,0 +1,20 @@
+{
+  "name": "@nanoframe/core-linux-x64",
+  "version": "0.1.0",
+  "description": "Nanoframe core binary for Linux x64",
+  "license": "ICL",
+  "os": ["linux"],
+  "cpu": ["x64"],
+  "files": ["bin/nanoframe-core"],
+  "bin": {
+    "nanoframe-core": "bin/nanoframe-core"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/infinitejs/nanoframe.git"
+  },
+  "homepage": "https://github.com/infinitejs/nanoframe#readme",
+  "bugs": {
+    "url": "https://github.com/infinitejs/nanoframe/issues"
+  }
+}

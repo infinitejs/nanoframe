@@ -1,0 +1,20 @@
+{
+  "name": "@nanoframe/core-win32-arm64",
+  "version": "0.1.0",
+  "description": "Nanoframe core binary for Windows ARM64",
+  "license": "ICL",
+  "os": ["win32"],
+  "cpu": ["arm64"],
+  "files": ["bin/nanoframe-core.exe"],
+  "bin": {
+    "nanoframe-core": "bin/nanoframe-core.exe"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/infinitejs/nanoframe.git"
+  },
+  "homepage": "https://github.com/infinitejs/nanoframe#readme",
+  "bugs": {
+    "url": "https://github.com/infinitejs/nanoframe/issues"
+  }
+}

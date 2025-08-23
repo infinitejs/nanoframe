@@ -1,0 +1,11 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "pnpm install (workspace)",
+			"type": "shell",
+			"command": "pnpm install",
+			"group": "build"
+		}
+	]
+}

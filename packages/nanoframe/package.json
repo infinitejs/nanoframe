@@ -1,0 +1,59 @@
+{
+  "name": "nanoframe",
+  "version": "0.1.0",
+  "description": "Electron-like framework using system webviews powered by a Rust core.",
+  "license": "ICL",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/infinitejs/nanoframe.git",
+    "directory": "packages/nanoframe"
+  },
+  "homepage": "https://github.com/infinitejs/nanoframe/tree/main/packages/nanoframe",
+  "bugs": {
+    "url": "https://github.com/infinitejs/nanoframe/issues"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && tsup src/index.ts --format esm,cjs",
+    "dev": "tsup src/index.ts --format esm,cjs --watch",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "execa": "9",
+    "get-port": "7",
+    "nanoevents": "9",
+    "node-fetch": "3",
+    "tree-kill": "1"
+  },
+  "optionalDependencies": {
+    "@nanoframe/core-win32-x64": "workspace:*",
+    "@nanoframe/core-win32-arm64": "workspace:*",
+    "@nanoframe/core-darwin-x64": "workspace:*",
+    "@nanoframe/core-darwin-arm64": "workspace:*",
+    "@nanoframe/core-linux-x64": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "24",
+    "eslint": "9",
+    "husky": "9",
+    "tsup": "8",
+    "typescript": "5.9.2",
+    "vitest": "3.2.4"
+  }
+}
