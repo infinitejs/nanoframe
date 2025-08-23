@@ -1,28 +1,46 @@
-BSD 3-Clause License
+Infinite Clause License (ICL)
+Version 1.0 – 2025
 
-Copyright (c) 2025, InfiniteJS
+Copyright (c) 2025 InfiniteJS
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
+1. Grant of Rights
+You are granted a perpetual, worldwide, irrevocable,
+royalty-free license to use, copy, modify, publish,
+distribute, sublicense, and/or sell the Software, in
+source or compiled form, subject to the conditions
+below.
 
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
+2. Conditions of Use
+- Attribution: This license and copyright notice must
+  appear with all substantial portions of the Software.
+- Modification Transparency: Any distributed modified
+  version must clearly document the changes made in a
+  dedicated file or section.
+- Source Clarity: Modifications must be clearly marked
+  within the source code or accompanying documentation.
+- No False Endorsement: Names of authors or contributors
+  may not be used to imply endorsement without prior
+  permission.
 
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
+3. Warranty Disclaimer
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF
+ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
+AND NON-INFRINGEMENT.
 
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived from
-   this software without specific prior written permission.
+4. Limitation of Liability
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE,
+ARISING FROM OR IN CONNECTION WITH THE SOFTWARE.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+5. Infinite Clause
+The rights granted herein are perpetual and irrevocable.
+No additional terms or restrictions may be applied to
+the Software by downstream licensees. Only the original
+authors may publish new versions of this license.
+
+---
+This is the Infinite Clause License (ICL).
+
+It exists to protect freedom, clarity, and longevity.
