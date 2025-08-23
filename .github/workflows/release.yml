@@ -49,7 +49,7 @@ jobs:
         run: cargo build --release --target x86_64-unknown-linux-gnu
       - name: Copy binary into package bin
         run: |
-          cp packages/nanoframe-core/target/x86_64-unknown-linux-gnu/release/nanoframe-core packages/nanoframe-core-linux-x64/bin/nanoframe-core
+          cp target/x86_64-unknown-linux-gnu/release/nanoframe-core packages/nanoframe-core-linux-x64/bin/nanoframe-core
           chmod +x packages/nanoframe-core-linux-x64/bin/nanoframe-core
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -92,7 +92,7 @@ jobs:
       - name: Copy binary into package bin
         shell: pwsh
         run: |
-          Copy-Item -Force "packages/nanoframe-core/target/x86_64-pc-windows-msvc/release/nanoframe-core.exe" "packages/nanoframe-core-win32-x64/bin/nanoframe-core.exe"
+          Copy-Item -Force "target/x86_64-pc-windows-msvc/release/nanoframe-core.exe" "packages/nanoframe-core-win32-x64/bin/nanoframe-core.exe"
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -130,7 +130,7 @@ jobs:
       - name: Copy binary into package bin
         shell: pwsh
         run: |
-          Copy-Item -Force "packages/nanoframe-core/target/aarch64-pc-windows-msvc/release/nanoframe-core.exe" "packages/nanoframe-core-win32-arm64/bin/nanoframe-core.exe"
+          Copy-Item -Force "target/aarch64-pc-windows-msvc/release/nanoframe-core.exe" "packages/nanoframe-core-win32-arm64/bin/nanoframe-core.exe"
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -167,7 +167,7 @@ jobs:
         run: cargo build --release --target x86_64-apple-darwin
       - name: Copy binary into package bin
         run: |
-          cp packages/nanoframe-core/target/x86_64-apple-darwin/release/nanoframe-core packages/nanoframe-core-darwin-x64/bin/nanoframe-core
+          cp target/x86_64-apple-darwin/release/nanoframe-core packages/nanoframe-core-darwin-x64/bin/nanoframe-core
           chmod +x packages/nanoframe-core-darwin-x64/bin/nanoframe-core
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -209,7 +209,7 @@ jobs:
         run: cargo build --release --target aarch64-apple-darwin
       - name: Copy binary into package bin
         run: |
-          cp packages/nanoframe-core/target/aarch64-apple-darwin/release/nanoframe-core packages/nanoframe-core-darwin-arm64/bin/nanoframe-core
+          cp target/aarch64-apple-darwin/release/nanoframe-core packages/nanoframe-core-darwin-arm64/bin/nanoframe-core
           chmod +x packages/nanoframe-core-darwin-arm64/bin/nanoframe-core
       - name: Setup Node
         uses: actions/setup-node@v4
