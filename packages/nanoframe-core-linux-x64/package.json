@@ -1,6 +1,6 @@
 {
   "name": "@nanoframe/core-linux-x64",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Nanoframe core binary for Linux x64",
   "license": "ICL",
   "os": ["linux"],

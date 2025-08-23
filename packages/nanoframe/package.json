@@ -1,6 +1,6 @@
 {
   "name": "nanoframe",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Electron-like framework using system webviews powered by a Rust core.",
   "license": "ICL",
   "type": "module",
