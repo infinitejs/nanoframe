@@ -1040,6 +1040,33 @@ dependencies = [
 ]
 
 [[package]]
+name = "gdkx11"
+version = "0.18.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3caa00e14351bebbc8183b3c36690327eb77c49abc2268dd4bd36b856db3fbfe"
+dependencies = [
+ "gdk",
+ "gdkx11-sys",
+ "gio",
+ "glib",
+ "libc",
+ "x11",
+]
+
+[[package]]
+name = "gdkx11-sys"
+version = "0.18.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6e2e7445fe01ac26f11601db260dd8608fe172514eb63b3b5e261ea6b0f4428d"
+dependencies = [
+ "gdk-sys",
+ "glib-sys",
+ "libc",
+ "system-deps",
+ "x11",
+]
+
+[[package]]
 name = "generic-array"
 version = "0.14.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2856,6 +2883,7 @@ dependencies = [
  "dlopen2",
  "dpi",
  "gdkwayland-sys",
+ "gdkx11-sys",
  "gtk",
  "jni",
  "lazy_static",
@@ -2877,6 +2905,7 @@ dependencies = [
  "windows",
  "windows-core",
  "windows-version",
+ "x11-dl",
 ]
 
 [[package]]
@@ -3905,8 +3934,11 @@ dependencies = [
  "dirs",
  "dpi",
  "dunce",
+ "gdkx11",
+ "gtk",
  "html5ever",
  "http",
+ "javascriptcore-rs",
  "jni",
  "kuchikiki",
  "libc",
@@ -3921,14 +3953,38 @@ dependencies = [
  "percent-encoding",
  "raw-window-handle",
  "sha2",
+ "soup3",
  "tao-macros",
  "thiserror 2.0.16",
  "url",
  "webkit2gtk",
+ "webkit2gtk-sys",
  "webview2-com",
  "windows",
  "windows-core",
  "windows-version",
+ "x11-dl",
+]
+
+[[package]]
+name = "x11"
+version = "2.21.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "502da5464ccd04011667b11c435cb992822c2c0dbde1770c988480d312a0db2e"
+dependencies = [
+ "libc",
+ "pkg-config",
+]
+
+[[package]]
+name = "x11-dl"
+version = "2.21.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "38735924fedd5314a6e548792904ed8c6de6636285cb9fec04d5b1db85c1516f"
+dependencies = [
+ "libc",
+ "once_cell",
+ "pkg-config",
 ]
 
 [[package]]
