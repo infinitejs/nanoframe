@@ -66,7 +66,7 @@ jobs:
         shell: bash
         working-directory: packages/nanoframe-core-linux-x64
         run: |
-          if pnpm view @nanoframe/core-linux-x64@${{ needs.prepare.outputs.version }} > /dev/null 2>&1; then
+          if npm view @nanoframe/core-linux-x64@${{ needs.prepare.outputs.version }} > /dev/null 2>&1; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
@@ -110,7 +110,14 @@ jobs:
         shell: pwsh
         working-directory: packages/nanoframe-core-win32-x64
         run: |
-          $null = pnpm view @nanoframe/core-win32-x64@${{ needs.prepare.outputs.version }} 2>$null; if ($LASTEXITCODE -eq 0) {"exists=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append} else {"exists=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append}
+          $ErrorActionPreference = 'Continue'
+          npm view @nanoframe/core-win32-x64@${{ needs.prepare.outputs.version }} > $null 2>&1
+          if ($LASTEXITCODE -eq 0) {
+            "exists=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          } else {
+            "exists=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          }
+          exit 0
       - name: Publish @nanoframe/core-win32-x64
         if: steps.check.outputs.exists == 'false'
         working-directory: packages/nanoframe-core-win32-x64
@@ -150,7 +157,14 @@ jobs:
         shell: pwsh
         working-directory: packages/nanoframe-core-win32-arm64
         run: |
-          $null = pnpm view @nanoframe/core-win32-arm64@${{ needs.prepare.outputs.version }} 2>$null; if ($LASTEXITCODE -eq 0) {"exists=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append} else {"exists=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append}
+          $ErrorActionPreference = 'Continue'
+          npm view @nanoframe/core-win32-arm64@${{ needs.prepare.outputs.version }} > $null 2>&1
+          if ($LASTEXITCODE -eq 0) {
+            "exists=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          } else {
+            "exists=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          }
+          exit 0
       - name: Publish @nanoframe/core-win32-arm64
         if: steps.check.outputs.exists == 'false'
         working-directory: packages/nanoframe-core-win32-arm64
@@ -190,7 +204,7 @@ jobs:
         shell: bash
         working-directory: packages/nanoframe-core-darwin-x64
         run: |
-          if pnpm view @nanoframe/core-darwin-x64@${{ needs.prepare.outputs.version }} > /dev/null 2>&1; then
+          if npm view @nanoframe/core-darwin-x64@${{ needs.prepare.outputs.version }} > /dev/null 2>&1; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
@@ -234,7 +248,7 @@ jobs:
         shell: bash
         working-directory: packages/nanoframe-core-darwin-arm64
         run: |
-          if pnpm view @nanoframe/core-darwin-arm64@${{ needs.prepare.outputs.version }} > /dev/null 2>&1; then
+          if npm view @nanoframe/core-darwin-arm64@${{ needs.prepare.outputs.version }} > /dev/null 2>&1; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
@@ -284,7 +298,7 @@ jobs:
         shell: bash
         working-directory: packages/nanoframe
         run: |
-          if pnpm view nanoframe@${{ needs.prepare.outputs.version }} > /dev/null 2>&1; then
+          if npm view nanoframe@${{ needs.prepare.outputs.version }} > /dev/null 2>&1; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
