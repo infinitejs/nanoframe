@@ -56,15 +56,17 @@ jobs:
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
+      - name: Enable Corepack (pnpm)
+        run: corepack enable
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-linux-x64
-        run: npm version ${{ needs.prepare.outputs.version }} --no-git-tag-version
+        run: pnpm pkg set "version=${{ needs.prepare.outputs.version }}"
       - name: Check if version exists
         id: check
         shell: bash
         working-directory: packages/nanoframe-core-linux-x64
         run: |
-          if npm view @nanoframe/core-linux-x64@${{ needs.prepare.outputs.version }} > /dev/null 2>&1; then
+          if pnpm view @nanoframe/core-linux-x64@${{ needs.prepare.outputs.version }} > /dev/null 2>&1; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
@@ -98,15 +100,17 @@ jobs:
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
+      - name: Enable Corepack (pnpm)
+        run: corepack enable
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-win32-x64
-        run: npm version ${{ needs.prepare.outputs.version }} --no-git-tag-version
+        run: pnpm pkg set "version=${{ needs.prepare.outputs.version }}"
       - name: Check if version exists
         id: check
         shell: pwsh
         working-directory: packages/nanoframe-core-win32-x64
         run: |
-          $exists = npm view @nanoframe/core-win32-x64@${{ needs.prepare.outputs.version }} 2>$null; if ($LASTEXITCODE -eq 0) {"exists=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append} else {"exists=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append}
+          $null = pnpm view @nanoframe/core-win32-x64@${{ needs.prepare.outputs.version }} 2>$null; if ($LASTEXITCODE -eq 0) {"exists=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append} else {"exists=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append}
       - name: Publish @nanoframe/core-win32-x64
         if: steps.check.outputs.exists == 'false'
         working-directory: packages/nanoframe-core-win32-x64
@@ -136,15 +140,17 @@ jobs:
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
+      - name: Enable Corepack (pnpm)
+        run: corepack enable
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-win32-arm64
-        run: npm version ${{ needs.prepare.outputs.version }} --no-git-tag-version
+        run: pnpm pkg set "version=${{ needs.prepare.outputs.version }}"
       - name: Check if version exists
         id: check
         shell: pwsh
         working-directory: packages/nanoframe-core-win32-arm64
         run: |
-          $exists = npm view @nanoframe/core-win32-arm64@${{ needs.prepare.outputs.version }} 2>$null; if ($LASTEXITCODE -eq 0) {"exists=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append} else {"exists=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append}
+          $null = pnpm view @nanoframe/core-win32-arm64@${{ needs.prepare.outputs.version }} 2>$null; if ($LASTEXITCODE -eq 0) {"exists=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append} else {"exists=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append}
       - name: Publish @nanoframe/core-win32-arm64
         if: steps.check.outputs.exists == 'false'
         working-directory: packages/nanoframe-core-win32-arm64
@@ -174,15 +180,17 @@ jobs:
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
+      - name: Enable Corepack (pnpm)
+        run: corepack enable
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-darwin-x64
-        run: npm version ${{ needs.prepare.outputs.version }} --no-git-tag-version
+        run: pnpm pkg set "version=${{ needs.prepare.outputs.version }}"
       - name: Check if version exists
         id: check
         shell: bash
         working-directory: packages/nanoframe-core-darwin-x64
         run: |
-          if npm view @nanoframe/core-darwin-x64@${{ needs.prepare.outputs.version }} > /dev/null 2>&1; then
+          if pnpm view @nanoframe/core-darwin-x64@${{ needs.prepare.outputs.version }} > /dev/null 2>&1; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
@@ -216,15 +224,17 @@ jobs:
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
+      - name: Enable Corepack (pnpm)
+        run: corepack enable
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-darwin-arm64
-        run: npm version ${{ needs.prepare.outputs.version }} --no-git-tag-version
+        run: pnpm pkg set "version=${{ needs.prepare.outputs.version }}"
       - name: Check if version exists
         id: check
         shell: bash
         working-directory: packages/nanoframe-core-darwin-arm64
         run: |
-          if npm view @nanoframe/core-darwin-arm64@${{ needs.prepare.outputs.version }} > /dev/null 2>&1; then
+          if pnpm view @nanoframe/core-darwin-arm64@${{ needs.prepare.outputs.version }} > /dev/null 2>&1; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
@@ -249,6 +259,8 @@ jobs:
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
+      - name: Enable Corepack (pnpm)
+        run: corepack enable
       - name: Update version and optionalDependencies
         working-directory: packages/nanoframe
         run: |
@@ -263,16 +275,16 @@ jobs:
             package.json > package.json.tmp && mv package.json.tmp package.json
       - name: Install dependencies
         working-directory: packages/nanoframe
-        run: npm install
+        run: pnpm install
       - name: Build package
         working-directory: packages/nanoframe
-        run: npm run build
+        run: pnpm run build
       - name: Check if version exists
         id: check
         shell: bash
         working-directory: packages/nanoframe
         run: |
-          if npm view nanoframe@${{ needs.prepare.outputs.version }} > /dev/null 2>&1; then
+          if pnpm view nanoframe@${{ needs.prepare.outputs.version }} > /dev/null 2>&1; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
