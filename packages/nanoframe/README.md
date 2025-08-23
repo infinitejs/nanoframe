@@ -1,6 +1,18 @@
-# nanoframe (TypeScript SDK)
+<div align="center">
+<img src="https://github.com/infinitejs/nanoframe/blob/main/assets/logo.png" width="100" height="100" />
 
-TypeScript/Node API for Nanoframe, a lightweight desktop runtime backed by a Rust core using system webviews.
+<h1>Nanoframe</h1>
+<p>Lightweight, fast desktop apps with system webviews. Nanoframe pairs a tiny Rust core (tao + wry) with a TypeScript API, connected via JSON‑RPC over stdio. Think “Electron‑like DX without bundling Chromium”.</p>
+</div>
+
+Status: experimental, but usable for prototypes and internal tools.
+
+## Highlights
+
+- System webviews (no bundled Chromium)
+- Cross‑platform Rust core with prebuilt binaries per OS/arch
+- Simple Node/TypeScript API: `app` + `BrowserWindow`
+- JSON‑RPC transport over stdio (no local servers)
 
 ## Install
 

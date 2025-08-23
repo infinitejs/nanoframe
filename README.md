@@ -1,6 +1,9 @@
-# Nanoframe
+<div align="center">
+<img src="./assets/logo.png" width="100" height="100" />
 
-Lightweight, fast desktop apps with system webviews. Nanoframe pairs a tiny Rust core (tao + wry) with a TypeScript API, connected via JSON‑RPC over stdio. Think “Electron‑like DX without bundling Chromium”.
+<h1>Nanoframe</h1>
+<p>Lightweight, fast desktop apps with system webviews. Nanoframe pairs a tiny Rust core (tao + wry) with a TypeScript API, connected via JSON‑RPC over stdio. Think “Electron‑like DX without bundling Chromium”.</p>
+</div>
 
 Status: experimental, but usable for prototypes and internal tools.
 
