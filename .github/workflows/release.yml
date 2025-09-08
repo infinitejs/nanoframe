@@ -53,10 +53,9 @@ jobs:
           chmod +x packages/nanoframe-core-linux-x64/bin/nanoframe-core
       - uses: pnpm/action-setup@v4
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-linux-x64
@@ -97,10 +96,9 @@ jobs:
           Copy-Item -Force "target/x86_64-pc-windows-msvc/release/nanoframe-core.exe" "packages/nanoframe-core-win32-x64/bin/nanoframe-core.exe"
       - uses: pnpm/action-setup@v4
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-win32-x64
@@ -144,10 +142,9 @@ jobs:
           Copy-Item -Force "target/aarch64-pc-windows-msvc/release/nanoframe-core.exe" "packages/nanoframe-core-win32-arm64/bin/nanoframe-core.exe"
       - uses: pnpm/action-setup@v4
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-win32-arm64
@@ -191,10 +188,9 @@ jobs:
           chmod +x packages/nanoframe-core-darwin-x64/bin/nanoframe-core
       - uses: pnpm/action-setup@v4
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-darwin-x64
@@ -235,10 +231,9 @@ jobs:
           chmod +x packages/nanoframe-core-darwin-arm64/bin/nanoframe-core
       - uses: pnpm/action-setup@v4
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-darwin-arm64
@@ -270,10 +265,9 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y jq
       - uses: pnpm/action-setup@v4
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
       - name: Update version and optionalDependencies
         working-directory: packages/nanoframe
