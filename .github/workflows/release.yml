@@ -52,7 +52,7 @@ jobs:
           cp target/x86_64-unknown-linux-gnu/release/nanoframe-core packages/nanoframe-core-linux-x64/bin/nanoframe-core
           chmod +x packages/nanoframe-core-linux-x64/bin/nanoframe-core
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
@@ -96,7 +96,7 @@ jobs:
         run: |
           Copy-Item -Force "target/x86_64-pc-windows-msvc/release/nanoframe-core.exe" "packages/nanoframe-core-win32-x64/bin/nanoframe-core.exe"
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
@@ -143,7 +143,7 @@ jobs:
         run: |
           Copy-Item -Force "target/aarch64-pc-windows-msvc/release/nanoframe-core.exe" "packages/nanoframe-core-win32-arm64/bin/nanoframe-core.exe"
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
@@ -190,7 +190,7 @@ jobs:
           cp target/x86_64-apple-darwin/release/nanoframe-core packages/nanoframe-core-darwin-x64/bin/nanoframe-core
           chmod +x packages/nanoframe-core-darwin-x64/bin/nanoframe-core
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
@@ -234,7 +234,7 @@ jobs:
           cp target/aarch64-apple-darwin/release/nanoframe-core packages/nanoframe-core-darwin-arm64/bin/nanoframe-core
           chmod +x packages/nanoframe-core-darwin-arm64/bin/nanoframe-core
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
@@ -269,7 +269,7 @@ jobs:
       - name: Ensure jq is installed
         run: sudo apt-get update && sudo apt-get install -y jq
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
