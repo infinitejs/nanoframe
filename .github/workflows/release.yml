@@ -51,13 +51,12 @@ jobs:
         run: |
           cp target/x86_64-unknown-linux-gnu/release/nanoframe-core packages/nanoframe-core-linux-x64/bin/nanoframe-core
           chmod +x packages/nanoframe-core-linux-x64/bin/nanoframe-core
+      - uses: pnpm/action-setup@v4
       - name: Setup Node
         uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 22
           registry-url: 'https://registry.npmjs.org'
-      - name: Enable Corepack (pnpm)
-        run: corepack enable
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-linux-x64
         run: pnpm pkg set "version=${{ needs.prepare.outputs.version }}"
@@ -95,13 +94,12 @@ jobs:
         shell: pwsh
         run: |
           Copy-Item -Force "target/x86_64-pc-windows-msvc/release/nanoframe-core.exe" "packages/nanoframe-core-win32-x64/bin/nanoframe-core.exe"
+      - uses: pnpm/action-setup@v4
       - name: Setup Node
         uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 22
           registry-url: 'https://registry.npmjs.org'
-      - name: Enable Corepack (pnpm)
-        run: corepack enable
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-win32-x64
         run: pnpm pkg set "version=${{ needs.prepare.outputs.version }}"
@@ -142,13 +140,12 @@ jobs:
         shell: pwsh
         run: |
           Copy-Item -Force "target/aarch64-pc-windows-msvc/release/nanoframe-core.exe" "packages/nanoframe-core-win32-arm64/bin/nanoframe-core.exe"
+      - uses: pnpm/action-setup@v4
       - name: Setup Node
         uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 22
           registry-url: 'https://registry.npmjs.org'
-      - name: Enable Corepack (pnpm)
-        run: corepack enable
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-win32-arm64
         run: pnpm pkg set "version=${{ needs.prepare.outputs.version }}"
@@ -189,13 +186,12 @@ jobs:
         run: |
           cp target/x86_64-apple-darwin/release/nanoframe-core packages/nanoframe-core-darwin-x64/bin/nanoframe-core
           chmod +x packages/nanoframe-core-darwin-x64/bin/nanoframe-core
+      - uses: pnpm/action-setup@v4
       - name: Setup Node
         uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 22
           registry-url: 'https://registry.npmjs.org'
-      - name: Enable Corepack (pnpm)
-        run: corepack enable
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-darwin-x64
         run: pnpm pkg set "version=${{ needs.prepare.outputs.version }}"
@@ -233,13 +229,12 @@ jobs:
         run: |
           cp target/aarch64-apple-darwin/release/nanoframe-core packages/nanoframe-core-darwin-arm64/bin/nanoframe-core
           chmod +x packages/nanoframe-core-darwin-arm64/bin/nanoframe-core
+      - uses: pnpm/action-setup@v4
       - name: Setup Node
         uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 22
           registry-url: 'https://registry.npmjs.org'
-      - name: Enable Corepack (pnpm)
-        run: corepack enable
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-darwin-arm64
         run: pnpm pkg set "version=${{ needs.prepare.outputs.version }}"
@@ -268,13 +263,12 @@ jobs:
       - uses: actions/checkout@v5
       - name: Ensure jq is installed
         run: sudo apt-get update && sudo apt-get install -y jq
+      - uses: pnpm/action-setup@v4
       - name: Setup Node
         uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 22
           registry-url: 'https://registry.npmjs.org'
-      - name: Enable Corepack (pnpm)
-        run: corepack enable
       - name: Update version and optionalDependencies
         working-directory: packages/nanoframe
         run: |
