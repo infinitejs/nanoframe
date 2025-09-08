@@ -4,8 +4,7 @@
   "description": "Electron-like framework using system webviews powered by a Rust core.",
   "license": "ICL",
   "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
@@ -16,21 +15,13 @@
   "bugs": {
     "url": "https://github.com/infinitejs/nanoframe/issues"
   },
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    }
-  },
   "files": [
     "dist",
     "LICENSE",
     "README.md"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && tsup src/index.ts --format esm,cjs",
-    "dev": "tsup src/index.ts --format esm,cjs --watch",
+    "build": "tsc -p tsconfig.build.json",
     "lint": "eslint .",
     "test": "vitest run",
     "prepare": "husky install"
@@ -53,7 +44,6 @@
     "@types/node": "24",
     "eslint": "9",
     "husky": "9",
-    "tsup": "8",
     "typescript": "5.9.2",
     "vitest": "3.2.4"
   }
