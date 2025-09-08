@@ -1,6 +1,6 @@
 [package]
 name = "nanoframe-core"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 description = "Nanoframe Rust core controlling system webviews with JSON-RPC over stdio"
 license = "ICL"
