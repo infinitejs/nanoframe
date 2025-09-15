@@ -57,6 +57,7 @@ jobs:
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-linux-x64
         run: pnpm pkg set "version=${{ needs.prepare.outputs.version }}"
@@ -100,6 +101,7 @@ jobs:
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-win32-x64
         run: pnpm pkg set "version=${{ needs.prepare.outputs.version }}"
@@ -146,6 +148,7 @@ jobs:
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-win32-arm64
         run: pnpm pkg set "version=${{ needs.prepare.outputs.version }}"
@@ -192,6 +195,7 @@ jobs:
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-darwin-x64
         run: pnpm pkg set "version=${{ needs.prepare.outputs.version }}"
@@ -235,6 +239,7 @@ jobs:
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-darwin-arm64
         run: pnpm pkg set "version=${{ needs.prepare.outputs.version }}"
@@ -269,6 +274,7 @@ jobs:
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
       - name: Update version and optionalDependencies
         working-directory: packages/nanoframe
         run: |
