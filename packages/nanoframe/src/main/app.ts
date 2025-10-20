@@ -1,9 +1,9 @@
 import { createNanoEvents } from 'nanoevents'
-import { RpcClient, withTimeout } from './core'
+import { RpcClient, withTimeout } from './core.js'
 
 export class AppImpl {
   #rpc!: RpcClient
-  #emitter = createNanoEvents<{ ready: () => void, windowAllClosed: () => void }>()
+  #emitter = createNanoEvents<{ ready: () => void, windowAllClosed: () => void, webviewIpc: (e: { windowId?: string, payload: any }) => void }>()
   whenReady: Promise<void>
   #stopKeepAlive?: () => void
 
@@ -16,13 +16,17 @@ export class AppImpl {
     this.#rpc.onNotify((method, params) => {
       if (method === 'window.closed') {
         this.#emitter.emit('windowAllClosed')
+      } else if (method === 'webview.ipc') {
+        this.#emitter.emit('webviewIpc', params)
       }
     })
     await withTimeout(this.#rpc.call('ping', {}), 10_000, new Error('nanoframe-core ping timeout'))
     this.#emitter.emit('ready')
   }
 
-  on(event: 'ready' | 'windowAllClosed', cb: () => void) { this.#emitter.on(event as any, cb as any) }
+  on(event: 'ready' | 'windowAllClosed', cb: () => void): void
+  on(event: 'webviewIpc', cb: (e: { windowId?: string, payload: any }) => void): void
+  on(event: any, cb: any) { this.#emitter.on(event, cb) }
 
   get rpc() { return this.#rpc }
 

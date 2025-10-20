@@ -18,6 +18,13 @@ struct CreateWindowParams {
     html: Option<String>,
     width: Option<u32>,
     height: Option<u32>,
+    x: Option<i32>,
+    y: Option<i32>,
+    show: Option<bool>,
+    min_width: Option<u32>,
+    min_height: Option<u32>,
+    max_width: Option<u32>,
+    max_height: Option<u32>,
     icon_path: Option<String>,
     resizable: Option<bool>,
     always_on_top: Option<bool>,
@@ -25,6 +32,7 @@ struct CreateWindowParams {
     decorations: Option<bool>,
     center: Option<bool>,
     preload: Option<String>,
+    content_size: Option<bool>,
 }
 
 pub fn create_window_with_target(
@@ -34,10 +42,25 @@ pub fn create_window_with_target(
 ) -> Result<Value> {
     let p: CreateWindowParams = serde_json::from_value(params)?;
 
+    // Pre-generate window id so we can capture it in callbacks
+    let id = Uuid::new_v4().to_string();
+
     // Build tao window
     let mut wb = WindowBuilder::new();
     if let Some(title) = p.title { wb = wb.with_title(title); }
     if let (Some(w), Some(h)) = (p.width, p.height) { wb = wb.with_inner_size(tao::dpi::LogicalSize::new(w as f64, h as f64)); }
+    if let (Some(x), Some(y)) = (p.x, p.y) { wb = wb.with_position(tao::dpi::LogicalPosition::new(x as f64, y as f64)); }
+    // Combine min/max sizes if provided
+    if p.min_width.is_some() || p.min_height.is_some() {
+        let mw = p.min_width.unwrap_or(0) as f64;
+        let mh = p.min_height.unwrap_or(0) as f64;
+        wb = wb.with_min_inner_size(tao::dpi::LogicalSize::new(mw, mh));
+    }
+    if p.max_width.is_some() || p.max_height.is_some() {
+        let mw = p.max_width.unwrap_or(u32::MAX) as f64;
+        let mh = p.max_height.unwrap_or(u32::MAX) as f64;
+        wb = wb.with_max_inner_size(tao::dpi::LogicalSize::new(mw, mh));
+    }
     if let Some(icon_path) = p.icon_path.as_deref() { if let Ok(icon) = load_icon(icon_path) { wb = wb.with_window_icon(Some(icon)); } }
     if let Some(v) = p.resizable { wb = wb.with_resizable(v); }
     if let Some(v) = p.always_on_top { wb = wb.with_always_on_top(v); }
@@ -45,15 +68,28 @@ pub fn create_window_with_target(
     if let Some(v) = p.decorations { wb = wb.with_decorations(v); }
 
     let window = wb.build(target)?;
+    if p.content_size.unwrap_or(false) {
+        // noop placeholder: tao/wry works with inner size already
+    }
 
     // Build webview
     let mut wvb = WebViewBuilder::new();
     if let Some(script) = p.preload.as_deref() { wvb = wvb.with_initialization_script(script); }
     if let Some(url) = p.url { wvb = wvb.with_url(&url); }
     if let Some(html) = p.html { wvb = wvb.with_html(&html); }
-    let webview = wvb.build(&window)?;
+    let win_id_for_ipc = id.clone();
+    let webview = wvb.with_ipc_handler({
+        let tx = app.tx_out.clone();
+        move |request: wry::http::Request<String>| {
+            let body = request.body();
+            let payload = serde_json::from_str::<serde_json::Value>(body).unwrap_or(json!({ "raw": body }));
+            let _ = tx.send(RpcResponse::notify("webview.ipc", json!({ "windowId": win_id_for_ipc, "payload": payload })));
+        }
+    }).build(&window)?;
 
-    let id = Uuid::new_v4().to_string();
+    // Show window depending on flag (default true) BEFORE moving window
+    if p.show.unwrap_or(true) { window.set_visible(true); } else { window.set_visible(false); }
+
     app.windows.insert(id.clone(), window);
     app.webviews.insert(id.clone(), webview);
 
@@ -61,6 +97,8 @@ pub fn create_window_with_target(
     if p.center.unwrap_or(false) {
         let _ = op_center(app, json!({"windowId": id.clone()}), RpcId::Null);
     }
+
+    // Visibility already set above
 
     Ok(json!({ "windowId": id }))
 }
@@ -234,6 +272,43 @@ pub fn op_get_position(app: &mut App, params: Value, id: RpcId) {
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
+struct BoundsParams { window_id: String, x: Option<i32>, y: Option<i32>, width: Option<u32>, height: Option<u32> }
+
+pub fn op_set_bounds(app: &mut App, params: Value, id: RpcId) {
+    match serde_json::from_value::<BoundsParams>(params) {
+        Ok(p) => {
+            if let Some(win) = app.windows.get(&p.window_id) {
+                use tao::dpi::{PhysicalPosition, PhysicalSize};
+                if let (Some(x), Some(y)) = (p.x, p.y) { win.set_outer_position(PhysicalPosition::new(x, y)); }
+                if let (Some(w), Some(h)) = (p.width, p.height) { win.set_inner_size(PhysicalSize::new(w, h)); }
+                let _ = app.tx_out.send(RpcResponse::result(id, json!(true)));
+            } else { let _ = app.tx_out.send(RpcResponse::error(id, -32001, "Window not found".into())); }
+        }
+        Err(e) => { let _ = app.tx_out.send(RpcResponse::error(id, -32602, e.to_string())); }
+    }
+}
+
+pub fn op_get_bounds(app: &mut App, params: Value, id: RpcId) {
+    match serde_json::from_value::<WithWindowIdOnly>(params) {
+        Ok(p) => {
+            if let Some(win) = app.windows.get(&p.window_id) {
+                let pos = win.outer_position().ok();
+                let size = win.inner_size();
+                let res = json!({
+                    "x": pos.as_ref().map(|p| p.x),
+                    "y": pos.as_ref().map(|p| p.y),
+                    "width": size.width,
+                    "height": size.height,
+                });
+                let _ = app.tx_out.send(RpcResponse::result(id, res));
+            } else { let _ = app.tx_out.send(RpcResponse::error(id, -32001, "Window not found".into())); }
+        }
+        Err(e) => { let _ = app.tx_out.send(RpcResponse::error(id, -32602, e.to_string())); }
+    }
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct PostMessageParams { window_id: String, payload: serde_json::Value }
 
 pub fn op_post_message(app: &mut App, params: Value, id: RpcId) {
@@ -311,6 +386,9 @@ pub fn op_get_size(app: &mut App, params: Value, id: RpcId) {
 pub fn op_maximize(app: &mut App, params: Value, id: RpcId) { with_window(app, params, id, |w| { w.set_maximized(true); Ok(json!(true)) }); }
 pub fn op_minimize(app: &mut App, params: Value, id: RpcId) { with_window(app, params, id, |w| { w.set_minimized(true); Ok(json!(true)) }); }
 pub fn op_unminimize(app: &mut App, params: Value, id: RpcId) { with_window(app, params, id, |w| { w.set_minimized(false); Ok(json!(true)) }); }
+pub fn op_unmaximize(app: &mut App, params: Value, id: RpcId) { with_window(app, params, id, |w| { w.set_maximized(false); Ok(json!(true)) }); }
+pub fn op_is_maximized(app: &mut App, params: Value, id: RpcId) { with_window(app, params, id, |w| { Ok(json!(w.is_maximized())) }); }
+pub fn op_restore(app: &mut App, params: Value, id: RpcId) { with_window(app, params, id, |w| { w.set_minimized(false); w.set_maximized(false); Ok(json!(true)) }); }
 pub fn op_focus(app: &mut App, params: Value, id: RpcId) { with_window(app, params, id, |w| { w.set_focus(); Ok(json!(true)) }); }
 pub fn op_center(app: &mut App, params: Value, id: RpcId) { with_window(app, params, id, |w| {
     use tao::dpi::{PhysicalPosition};
@@ -327,6 +405,87 @@ pub fn op_center(app: &mut App, params: Value, id: RpcId) { with_window(app, par
 pub fn op_set_always_on_top(app: &mut App, params: Value, id: RpcId) { with_window_bool(app, params, id, |w, v| { w.set_always_on_top(v); Ok(json!(true)) }); }
 pub fn op_set_resizable(app: &mut App, params: Value, id: RpcId) { with_window_bool(app, params, id, |w, v| { w.set_resizable(v); Ok(json!(true)) }); }
 pub fn op_is_visible(app: &mut App, params: Value, id: RpcId) { with_window(app, params, id, |w| { Ok(json!(w.is_visible())) }); }
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct SizeOnlyParams { window_id: String, width: u32, height: u32 }
+
+pub fn op_set_min_size(app: &mut App, params: Value, id: RpcId) {
+    match serde_json::from_value::<SizeOnlyParams>(params) {
+        Ok(p) => {
+            if let Some(win) = app.windows.get(&p.window_id) {
+                use tao::dpi::PhysicalSize;
+                win.set_min_inner_size(Some(PhysicalSize::new(p.width, p.height)));
+                let _ = app.tx_out.send(RpcResponse::result(id, json!(true)));
+            } else { let _ = app.tx_out.send(RpcResponse::error(id, -32001, "Window not found".into())); }
+        }
+        Err(e) => { let _ = app.tx_out.send(RpcResponse::error(id, -32602, e.to_string())); }
+    }
+}
+
+pub fn op_set_max_size(app: &mut App, params: Value, id: RpcId) {
+    match serde_json::from_value::<SizeOnlyParams>(params) {
+        Ok(p) => {
+            if let Some(win) = app.windows.get(&p.window_id) {
+                use tao::dpi::PhysicalSize;
+                win.set_max_inner_size(Some(PhysicalSize::new(p.width, p.height)));
+                let _ = app.tx_out.send(RpcResponse::result(id, json!(true)));
+            } else { let _ = app.tx_out.send(RpcResponse::error(id, -32001, "Window not found".into())); }
+        }
+        Err(e) => { let _ = app.tx_out.send(RpcResponse::error(id, -32602, e.to_string())); }
+    }
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct AttentionParams { window_id: String, critical: Option<bool> }
+
+pub fn op_request_user_attention(app: &mut App, params: Value, id: RpcId) {
+    match serde_json::from_value::<AttentionParams>(params) {
+        Ok(p) => {
+            if let Some(win) = app.windows.get(&p.window_id) {
+                let demand = if p.critical.unwrap_or(false) { tao::window::UserAttentionType::Critical } else { tao::window::UserAttentionType::Informational };
+                win.request_user_attention(Some(demand));
+                let _ = app.tx_out.send(RpcResponse::result(id, json!(true)));
+            } else { let _ = app.tx_out.send(RpcResponse::error(id, -32001, "Window not found".into())); }
+        }
+        Err(e) => { let _ = app.tx_out.send(RpcResponse::error(id, -32602, e.to_string())); }
+    }
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct ScreenshotParams { window_id: String }
+
+pub fn op_screenshot(app: &mut App, params: Value, id: RpcId) {
+    match serde_json::from_value::<ScreenshotParams>(params) {
+        Ok(p) => {
+            let r = (|| -> anyhow::Result<String> {
+                // Best-effort: capture primary screen for now
+                let screens: Vec<screenshots::Screen> = screenshots::Screen::all()?;
+                let mut iter = screens.into_iter();
+                let screen: screenshots::Screen = iter.next().ok_or(anyhow!("No screen"))?;
+                let img = screen.capture()?; // ImageBuffer RGBA
+                let (w, h) = (img.width(), img.height());
+                let mut buf = Vec::new();
+                {
+                    use image::codecs::png::PngEncoder;
+                    use image::ExtendedColorType;
+                    use image::ImageEncoder;
+                    let enc = PngEncoder::new(&mut buf);
+                    enc.write_image(img.as_raw(), w, h, ExtendedColorType::Rgba8)?;
+                }
+                use base64::Engine as _;
+                Ok(base64::engine::general_purpose::STANDARD.encode(&buf))
+            })();
+            match r {
+                Ok(b64) => { let _ = app.tx_out.send(RpcResponse::result(id, json!({"base64Png": b64}))); }
+                Err(e) => { let _ = app.tx_out.send(RpcResponse::error(id, -33010, e.to_string())); }
+            }
+        }
+        Err(e) => { let _ = app.tx_out.send(RpcResponse::error(id, -32602, e.to_string())); }
+    }
+}
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]

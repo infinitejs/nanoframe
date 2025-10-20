@@ -20,6 +20,8 @@ directories = "6"
 image = { version = "0.25", default-features = false, features = ["png", "ico"] }
 open = "5"
 arboard = "3"
+base64 = "0.22"
+screenshots = "0.8"
 
 [features]
 default = []
