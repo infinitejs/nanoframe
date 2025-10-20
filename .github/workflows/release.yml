@@ -53,7 +53,7 @@ jobs:
           chmod +x packages/nanoframe-core-linux-x64/bin/nanoframe-core
       - uses: pnpm/action-setup@v4
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
@@ -97,7 +97,7 @@ jobs:
           Copy-Item -Force "target/x86_64-pc-windows-msvc/release/nanoframe-core.exe" "packages/nanoframe-core-win32-x64/bin/nanoframe-core.exe"
       - uses: pnpm/action-setup@v4
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
@@ -144,7 +144,7 @@ jobs:
           Copy-Item -Force "target/aarch64-pc-windows-msvc/release/nanoframe-core.exe" "packages/nanoframe-core-win32-arm64/bin/nanoframe-core.exe"
       - uses: pnpm/action-setup@v4
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
@@ -191,7 +191,7 @@ jobs:
           chmod +x packages/nanoframe-core-darwin-x64/bin/nanoframe-core
       - uses: pnpm/action-setup@v4
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
@@ -235,7 +235,7 @@ jobs:
           chmod +x packages/nanoframe-core-darwin-arm64/bin/nanoframe-core
       - uses: pnpm/action-setup@v4
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
@@ -270,7 +270,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y jq
       - uses: pnpm/action-setup@v4
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
