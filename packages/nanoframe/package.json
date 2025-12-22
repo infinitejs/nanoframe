@@ -45,6 +45,6 @@
     "eslint": "9",
     "husky": "9",
     "typescript": "5.9.3",
-    "vitest": "4.0.15"
+    "vitest": "4.0.16"
   }
 }
