@@ -15,7 +15,7 @@ thiserror = "2"
 parking_lot = "0.12"
 crossbeam-channel = "0.5"
 uuid = { version = "1", features = ["v4", "serde"] }
-rfd = "0.16"
+rfd = "0.17"
 directories = "6"
 image = { version = "0.25", default-features = false, features = ["png", "ico"] }
 open = "5"
