@@ -10,7 +10,7 @@ anyhow = "1"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 tao = { version = "0.34", features = ["rwh_06"] }
-wry = { version = "0.53", features = ["devtools", "os-webview"] }
+wry = { version = "0.54", features = ["devtools", "os-webview"] }
 thiserror = "2"
 parking_lot = "0.12"
 crossbeam-channel = "0.5"
