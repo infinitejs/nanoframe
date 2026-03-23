@@ -1,5 +1,5 @@
 import { execa, ExecaChildProcess } from 'execa'
-import { Readable } from 'node:stream'
+import type { Readable } from 'stream'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import fs from 'node:fs'
