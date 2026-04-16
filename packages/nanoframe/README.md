@@ -27,22 +27,23 @@ bun add nanoframe
 ```
 
 Peer/runtime requirements:
+
 - Node.js 20+
 - Platform core binary (auto-resolved) or local cargo-built `nanoframe-core`
 
 ## Quick usage
 
 ```ts
-import { app, BrowserWindow } from 'nanoframe'
+import { app, BrowserWindow } from "nanoframe";
 
-await app.whenReady
+await app.whenReady;
 const win = await BrowserWindow.create({
-  title: 'My App',
+  title: "My App",
   width: 800,
   height: 600,
-  url: 'https://example.com'
-})
-await win.openDevTools()
+  url: "https://example.com",
+});
+await win.openDevTools();
 ```
 
 ## API
@@ -60,6 +61,7 @@ await win.openDevTools()
 - `quit()` – terminate the child core process
 
 Environment flags:
+
 - `NANOF_DEV=1` – prefer local cargo build during development
 - `NANOF_FORCE_PLATFORM=1` – force platform package binary when available
 
@@ -68,6 +70,7 @@ Environment flags:
 Constructor is internal; use `BrowserWindow.create(options)`.
 
 Options (subset):
+
 - `title?: string`
 - `width?: number`, `height?: number`
 - `url?: string` | `html?: string`
@@ -77,6 +80,7 @@ Options (subset):
 - `preload?: string` (reserved)
 
 Methods:
+
 - `show()`, `hide()`, `close()`
 - `setIcon(path)`, `setTitle(title)`
 - `setSize(w, h)`, `getSize()`
@@ -90,9 +94,10 @@ Methods:
 ## How binaries are resolved
 
 At runtime, the SDK tries the following in order:
-1) If `NANOF_DEV=1` or a local `packages/nanoframe-core` cargo project exists and `NANOF_FORCE_PLATFORM` is not set, run `cargo run --release --bin nanoframe-core` inside that directory.
-2) Otherwise, resolve a platform package (`@nanoframe/core-<platform>-<arch>`) and execute the embedded binary.
-3) Fallback: try `nanoframe-core` on PATH.
+
+1. If `NANOF_DEV=1` or a local `packages/nanoframe-core` cargo project exists and `NANOF_FORCE_PLATFORM` is not set, run `cargo run --release --bin nanoframe-core` inside that directory.
+2. Otherwise, resolve a platform package (`@nanoframe/core-<platform>-<arch>`) and execute the embedded binary.
+3. Fallback: try `nanoframe-core` on PATH.
 
 ## Example app
 

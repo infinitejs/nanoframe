@@ -3,9 +3,15 @@
   "version": "0.0.0",
   "description": "Nanoframe core binary for macOS ARM64 (Apple Silicon)",
   "license": "ICL",
-  "os": ["darwin"],
-  "cpu": ["arm64"],
-  "files": ["bin/nanoframe-core"],
+  "os": [
+    "darwin"
+  ],
+  "cpu": [
+    "arm64"
+  ],
+  "files": [
+    "bin/nanoframe-core"
+  ],
   "bin": {
     "nanoframe-core": "bin/nanoframe-core"
   },

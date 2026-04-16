@@ -9,15 +9,8 @@
     "noEmit": false,
     "composite": false,
     "emitDeclarationOnly": false,
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "**/*.test.ts",
-    "**/*.spec.ts",
-    "node_modules",
-    "dist"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/*.test.ts", "**/*.spec.ts", "node_modules", "dist"]
 }

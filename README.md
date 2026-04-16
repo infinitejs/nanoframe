@@ -60,14 +60,14 @@ bun add nanoframe
 Create a window:
 
 ```ts
-import { app, BrowserWindow } from 'nanoframe';
+import { app, BrowserWindow } from "nanoframe";
 
 await app.whenReady;
 const win = await BrowserWindow.create({
-	title: 'My App',
-	width: 1024,
-	height: 768,
-	url: 'https://example.com'
+  title: "My App",
+  width: 1024,
+  height: 768,
+  url: "https://example.com",
 });
 await win.openDevTools();
 ```

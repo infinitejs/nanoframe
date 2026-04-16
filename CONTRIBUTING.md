@@ -5,23 +5,27 @@ Thanks for your interest! This guide explains how to set up your environment and
 ## Development setup
 
 Requirements:
+
 - Node.js 20+
 - pnpm 10+
 - Rust stable toolchain
 
 Bootstrap:
+
 ```powershell
 pnpm install
 pnpm -r build
 ```
 
 Run the example during development:
+
 ```powershell
 $env:NANOF_DEV = "1"
 pnpm -C examples/hello-world dev
 ```
 
 Build core:
+
 ```powershell
 cargo build -r
 ```

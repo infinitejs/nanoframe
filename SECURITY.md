@@ -13,6 +13,7 @@ Please report security issues privately via GitHub Security advisories:
 Alternatively, email the maintainers if listed on the repository.
 
 Include:
+
 - Affected versions and platforms
 - Reproduction steps and impact assessment
 - Any available patches or workarounds

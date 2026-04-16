@@ -3,9 +3,15 @@
   "version": "0.0.0",
   "description": "Nanoframe core binary for Linux x64",
   "license": "ICL",
-  "os": ["linux"],
-  "cpu": ["x64"],
-  "files": ["bin/nanoframe-core"],
+  "os": [
+    "linux"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "files": [
+    "bin/nanoframe-core"
+  ],
   "bin": {
     "nanoframe-core": "bin/nanoframe-core"
   },

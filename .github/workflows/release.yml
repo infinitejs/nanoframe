@@ -3,7 +3,7 @@ name: Release nanoframe core and packages
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
   workflow_dispatch:
 
 permissions:
@@ -56,7 +56,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 22
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
           package-manager-cache: false
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-linux-x64
@@ -100,7 +100,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 22
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
           package-manager-cache: false
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-win32-x64
@@ -147,7 +147,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 22
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
           package-manager-cache: false
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-win32-arm64
@@ -194,7 +194,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 22
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
           package-manager-cache: false
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-darwin-x64
@@ -238,7 +238,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 22
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
           package-manager-cache: false
       - name: Set version in platform package
         working-directory: packages/nanoframe-core-darwin-arm64
@@ -262,7 +262,8 @@ jobs:
 
   publish-main:
     name: Publish nanoframe package
-    needs: [prepare, linux-x64, windows-x64, windows-arm64, macos-x64, macos-arm64]
+    needs:
+      [prepare, linux-x64, windows-x64, windows-arm64, macos-x64, macos-arm64]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -273,7 +274,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 22
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
           package-manager-cache: false
       - name: Update version and optionalDependencies
         working-directory: packages/nanoframe

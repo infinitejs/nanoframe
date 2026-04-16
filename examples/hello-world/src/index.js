@@ -1,7 +1,7 @@
-import { app, BrowserWindow } from 'nanoframe';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
-import { writeFile } from 'node:fs/promises';
+import { app, BrowserWindow } from "nanoframe";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+import { writeFile } from "node:fs/promises";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -9,7 +9,7 @@ const __dirname = dirname(__filename);
 async function main() {
   // Create hidden then show after we tweak bounds and sizes
   const win = await BrowserWindow.create({
-    title: 'Nanoframe Hello',
+    title: "Nanoframe Hello",
     width: 1000,
     height: 700,
     x: 150,
@@ -17,7 +17,7 @@ async function main() {
     show: false,
     minWidth: 800,
     minHeight: 500,
-    url: 'https://example.com',
+    url: "https://example.com",
   });
 
   await app.whenReady;
@@ -29,16 +29,16 @@ async function main() {
   // Demonstrate bounds API
   await win.setBounds({ width: 1024, height: 640 });
   const bounds = await win.getBounds();
-  console.log('Bounds after resize:', bounds);
+  console.log("Bounds after resize:", bounds);
 
   // Show it now
   await win.show();
 
   // Enable a basic custom context menu hook
   await win.enableContextMenu();
-  app.on('webviewIpc', async ({ windowId, payload }) => {
+  app.on("webviewIpc", async ({ windowId, payload }) => {
     if (windowId !== win.id) return;
-    if (payload?.type === 'context-menu') {
+    if (payload?.type === "context-menu") {
       const { x, y } = payload.detail || {};
       // Inject a minimal in-page menu (pure HTML/CSS for demo). Click outside to dismiss.
       await win.eval(`(function(){
@@ -59,7 +59,7 @@ async function main() {
 
   // Showcase maximize/unmaximize + restore
   await win.maximize();
-  console.log('isMaximized:', await win.isMaximized());
+  console.log("isMaximized:", await win.isMaximized());
   await win.unmaximize();
   await win.restore();
 
@@ -68,13 +68,13 @@ async function main() {
 
   // Take a screenshot (base64 PNG) and save to temp folder
   const { base64Png } = await win.screenshot();
-  const { path: tempDir } = await app.getPath('temp');
-  const out = join(tempDir, 'nanoframe-screenshot.png');
-  await writeFile(out, Buffer.from(base64Png, 'base64'));
-  console.log('Saved screenshot to', out);
+  const { path: tempDir } = await app.getPath("temp");
+  const out = join(tempDir, "nanoframe-screenshot.png");
+  await writeFile(out, Buffer.from(base64Png, "base64"));
+  console.log("Saved screenshot to", out);
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error(err);
   process.exit(1);
 });
