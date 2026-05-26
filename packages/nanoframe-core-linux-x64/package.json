@@ -18,7 +18,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/infinitejs/nanoframe.git",
-    "directory: "packages/nanoframe-core-linux-x64"
+    "directory": "packages/nanoframe-core-linux-x64"
   },
   "homepage": "https://github.com/infinitejs/nanoframe#readme",
   "bugs": {
