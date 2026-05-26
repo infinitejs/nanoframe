@@ -17,7 +17,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/infinitejs/nanoframe.git"
+    "url": "https://github.com/infinitejs/nanoframe.git",
+    "directory": "packages/nanoframe-core-win32-arm64"
   },
   "homepage": "https://github.com/infinitejs/nanoframe#readme",
   "bugs": {
