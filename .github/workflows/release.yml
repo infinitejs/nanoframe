@@ -22,7 +22,7 @@ jobs:
       version: ${{ steps.setver.outputs.version }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - id: setver
         name: Derive tag version
         run: |
@@ -34,7 +34,7 @@ jobs:
     needs: prepare
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Install system deps for wry/webkitgtk
         run: |
           sudo apt-get update
@@ -84,7 +84,7 @@ jobs:
     needs: prepare
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -131,7 +131,7 @@ jobs:
     needs: prepare
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -178,7 +178,7 @@ jobs:
     needs: prepare
     runs-on: macos-14
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -222,7 +222,7 @@ jobs:
     needs: prepare
     runs-on: macos-14
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -267,7 +267,7 @@ jobs:
       [prepare, linux-x64, windows-x64, windows-arm64, macos-x64, macos-arm64]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Ensure jq is installed
         run: sudo apt-get update && sudo apt-get install -y jq
       - uses: pnpm/action-setup@v6
